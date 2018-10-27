@@ -84,7 +84,7 @@ public class Level implements Screen {
 
         mapHandler.renderTerrain();
 
-        dialogue.show("HAHAHAHAHAHHAHAHAHAHA!");
+//        dialogue.show("HAHAHAHAHAHHAHAHAHAHA!");
     }
 
     @Override

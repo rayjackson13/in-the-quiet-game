@@ -18,6 +18,7 @@ public class Dialogue {
         this.font = new BitmapFont();
         this.spriteBatch = new SpriteBatch();
         this.camera = camera;
+        font.getData().setScale(.5f, .5f);
     }
 
     public void show(String message) {
@@ -25,8 +26,8 @@ public class Dialogue {
         uiMatrix.setToOrtho2D(0, 0, WorldParams.WORLD_WIDTH, WorldParams.WORLD_HEIGHT);
         spriteBatch.setProjectionMatrix(uiMatrix);
         spriteBatch.begin();
-        spriteBatch.draw(new Texture("message.png"), 16, 48, 224, 48);
-        font.draw(spriteBatch, message, 16, 48);
+        spriteBatch.draw(new Texture("message.png"), 16, 16, 224, 48);
+        font.draw(spriteBatch, message, 32, 48);
         spriteBatch.end();
     }
 }

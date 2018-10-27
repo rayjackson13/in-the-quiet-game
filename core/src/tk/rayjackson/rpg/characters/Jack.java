@@ -34,6 +34,7 @@ public class Jack extends Sprite {
     private MapObjects mapObjects;
 
     private Array<Rectangle> deadZones;
+    private final float speed = 1;
 
     public Jack(Level screen, Vector2 startPosition) {
         this.screen = screen;
@@ -79,10 +80,10 @@ public class Jack extends Sprite {
 
     public void move(Vector2 direction) {
         if (canGoThere(direction)) {
-            this.position.x += direction.x * 1;
+            this.position.x += direction.x * speed;
         }
         if (canGoThere(direction)) {
-            this.position.y += direction.y * 1;
+            this.position.y += direction.y * speed;
         }
         currentState = State.RUNNING;
         facing = updateFacing(direction);
