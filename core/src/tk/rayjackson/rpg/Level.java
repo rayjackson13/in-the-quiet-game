@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import tk.rayjackson.rpg.camera.CameraHandler;
 import tk.rayjackson.rpg.characters.Jack;
+import tk.rayjackson.rpg.dialogue.Dialogue;
 import tk.rayjackson.rpg.input.Controls;
 import tk.rayjackson.rpg.map.MapHandler;
 import tk.rayjackson.rpg.music.MusicController;
@@ -25,6 +26,7 @@ public class Level implements Screen {
     private MusicController musicController;
 
     private Controls controls;
+    private Dialogue dialogue;
 
     public Level(Game game) {
         this.game = game;
@@ -36,6 +38,7 @@ public class Level implements Screen {
         jack = new Jack(this, new Vector2(128, 224));
         cameraHandler = new CameraHandler(jack.getPosition(), mapWidth, mapHeight);
         controls = new Controls();
+        dialogue = new Dialogue(game, cameraHandler.getCamera());
     }
 
     public TextureAtlas getAtlas() {
@@ -80,6 +83,8 @@ public class Level implements Screen {
         game.batch.end();
 
         mapHandler.renderTerrain();
+
+        dialogue.show("HAHAHAHAHAHHAHAHAHAHA!");
     }
 
     @Override

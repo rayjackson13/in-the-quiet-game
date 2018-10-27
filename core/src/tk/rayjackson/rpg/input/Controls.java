@@ -60,14 +60,14 @@ public class Controls {
     }
 
     public boolean isDown() {
-        return keyboard.UP() || gamepad.DOWN();
+        return keyboard.DOWN() || gamepad.DOWN();
     }
 
     public boolean isLeft() {
-        return keyboard.UP() || gamepad.LEFT();
+        return keyboard.LEFT() || gamepad.LEFT();
     }
 
     public boolean isRight() {
-        return keyboard.UP() || gamepad.RIGHT();
+        return keyboard.RIGHT() || gamepad.RIGHT();
     }
 }

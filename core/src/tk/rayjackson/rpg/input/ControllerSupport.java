@@ -25,6 +25,9 @@ public class ControllerSupport {
     }
 
     public float getAxis(int axisCode) {
+        if (active == null) {
+            return 0;
+        }
         // deal 20% of deadzone
         float axis = active.getAxis(axisCode);
         if (Math.abs(axis) < .2f) {
@@ -34,6 +37,9 @@ public class ControllerSupport {
     }
 
     public PovDirection getPov(int povCode) {
+        if (active == null) {
+            return PovDirection.center;
+        }
         return active.getPov(povCode);
     }
 }
