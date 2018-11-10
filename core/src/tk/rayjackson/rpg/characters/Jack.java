@@ -34,7 +34,7 @@ public class Jack extends Sprite {
     private MapObjects mapObjects;
 
     private Array<Rectangle> deadZones;
-    private final float speed = 1;
+    private final float speed = 2;
 
     public Jack(Level screen, Vector2 startPosition) {
         this.screen = screen;
@@ -105,7 +105,7 @@ public class Jack extends Sprite {
 
     public void update(float delta) {
         setBounds(position.x, position.y, 16, 16);
-        setRegion(getFrame(delta));
+        setRegion(screen.getGame().isPaused() ? getFrame(0) : getFrame(delta));
         currentState = State.STANDING;
     }
 

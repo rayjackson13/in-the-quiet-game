@@ -2,7 +2,7 @@ package tk.rayjackson.rpg.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import tk.rayjackson.rpg.Game;
+import tk.rayjackson.rpg.game.Game;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

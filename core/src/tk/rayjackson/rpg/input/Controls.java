@@ -22,6 +22,12 @@ class KeyboardControls {
     boolean RIGHT() {
         return input.isKeyPressed(Input.Keys.D);
     }
+    boolean SPACE() {
+        return input.isKeyPressed(Input.Keys.SPACE);
+    }
+    boolean LeftMouseDown() {
+        return input.isButtonPressed(Input.Buttons.LEFT);
+    }
 }
 
 class GamepadControls {
@@ -41,6 +47,10 @@ class GamepadControls {
     }
     boolean RIGHT () {
         return support.getPov(POV) == PovDirection.east || support.getAxis(AXIS_LY) > 0;
+    }
+
+    boolean A () {
+        return support.getButton(0);
     }
 }
 
@@ -69,5 +79,9 @@ public class Controls {
 
     public boolean isRight() {
         return keyboard.RIGHT() || gamepad.RIGHT();
+    }
+
+    public boolean isSkip() {
+        return  keyboard.SPACE() || gamepad.A() || keyboard.LeftMouseDown();
     }
 }

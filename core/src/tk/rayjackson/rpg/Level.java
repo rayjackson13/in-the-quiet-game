@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import tk.rayjackson.rpg.camera.CameraHandler;
 import tk.rayjackson.rpg.characters.Jack;
 import tk.rayjackson.rpg.dialogue.Dialogue;
+import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.input.Controls;
 import tk.rayjackson.rpg.map.MapHandler;
 import tk.rayjackson.rpg.music.MusicController;
@@ -27,6 +28,10 @@ public class Level implements Screen {
 
     private Controls controls;
     private Dialogue dialogue;
+
+    public Game getGame() {
+        return this.game;
+    }
 
     public Level(Game game) {
         this.game = game;
@@ -61,6 +66,7 @@ public class Level implements Screen {
     }
 
     private void update(float dt) {
+        jack.update(dt);
         handleInput(dt);
         cameraHandler.updateCamera();
         mapHandler.setCamera(cameraHandler.getCamera());
@@ -68,23 +74,23 @@ public class Level implements Screen {
 
     @Override
     public void render(float delta) {
-        update(delta);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        jack.update(delta);
-
         mapHandler.renderDecorations();
 
         game.batch.setProjectionMatrix(cameraHandler.getCamera().combined);
+
+        if (!game.isPaused()) {
+            update(delta);
+        }
+
         game.batch.begin();
         jack.draw(game.batch);
         game.batch.end();
 
         mapHandler.renderTerrain();
-
-//        dialogue.show("HAHAHAHAHAHHAHAHAHAHA!");
     }
 
     @Override
