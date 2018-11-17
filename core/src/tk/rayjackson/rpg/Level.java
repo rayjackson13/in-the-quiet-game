@@ -11,6 +11,7 @@ import tk.rayjackson.rpg.characters.Jack;
 import tk.rayjackson.rpg.dialogue.Dialogue;
 import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.input.Controls;
+import tk.rayjackson.rpg.input.TouchSupport;
 import tk.rayjackson.rpg.map.MapHandler;
 import tk.rayjackson.rpg.music.MusicController;
 
@@ -27,6 +28,7 @@ public class Level implements Screen {
     private MusicController musicController;
 
     private Controls controls;
+    private TouchSupport touchSupport;
     private Dialogue dialogue;
 
     public Game getGame() {
@@ -44,6 +46,7 @@ public class Level implements Screen {
         cameraHandler = new CameraHandler(jack.getPosition(), mapWidth, mapHeight);
         controls = new Controls();
         dialogue = new Dialogue(game, cameraHandler.getCamera());
+        touchSupport = new TouchSupport(game, cameraHandler.getCamera());
     }
 
     public TextureAtlas getAtlas() {
@@ -78,19 +81,21 @@ public class Level implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        mapHandler.renderDecorations();
-
-        game.batch.setProjectionMatrix(cameraHandler.getCamera().combined);
-
         if (!game.isPaused()) {
             update(delta);
         }
+
+        mapHandler.renderDecorations();
+
+        game.batch.setProjectionMatrix(cameraHandler.getCamera().combined);
 
         game.batch.begin();
         jack.draw(game.batch);
         game.batch.end();
 
         mapHandler.renderTerrain();
+
+        touchSupport.draw();
     }
 
     @Override
