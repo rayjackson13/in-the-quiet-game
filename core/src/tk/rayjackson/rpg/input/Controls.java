@@ -36,7 +36,7 @@ class KeyboardControls {
         return input.isKeyPressed(Input.Keys.D);
     }
     boolean SPACE() {
-        return input.isKeyPressed(Input.Keys.SPACE);
+        return input.isKeyJustPressed(Input.Keys.SPACE);
     }
     boolean LeftMouseDown() {
         return input.isButtonPressed(Input.Buttons.LEFT);

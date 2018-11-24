@@ -9,8 +9,6 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
-import tk.rayjackson.rpg.MapProcessor;
-
 public class MapHandler {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;

@@ -6,9 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tk.rayjackson.rpg.camera.CameraHandler;
 import tk.rayjackson.rpg.characters.Jack;
 import tk.rayjackson.rpg.dialogue.Dialogue;
+import tk.rayjackson.rpg.dialogue.DialogueParser;
+import tk.rayjackson.rpg.dialogue.DialogueStack;
 import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.input.Controls;
 import tk.rayjackson.rpg.input.TouchSupport;
@@ -28,8 +33,7 @@ public class Level implements Screen {
     private MusicController musicController;
 
     private Controls controls;
-    private TouchSupport touchSupport;
-    private Dialogue dialogue;
+    private DialogueStack dialogueStack;
 
     public Game getGame() {
         return this.game;
@@ -45,15 +49,16 @@ public class Level implements Screen {
         jack = new Jack(this, new Vector2(128, 224));
         cameraHandler = new CameraHandler(jack.getPosition(), mapWidth, mapHeight);
         controls = new Controls(game, cameraHandler.getCamera());
-        dialogue = new Dialogue(game, cameraHandler.getCamera());
+        initializeDialogues();
+    }
+
+    public void initializeDialogues() {
+        List<Dialogue> dialogues = DialogueParser.parse("dialogues/venom1.json");
+        dialogueStack = new DialogueStack(game, cameraHandler.getCamera(), dialogues);
     }
 
     public TextureAtlas getAtlas() {
         return jackAtlas;
-    }
-
-    @Override
-    public void show() {
     }
 
     private void handleInput(float dt) {
@@ -65,11 +70,13 @@ public class Level implements Screen {
             jack.move(new Vector2(-1, 0));
         if (controls.isRight())
             jack.move(new Vector2(1, 0));
+        if (controls.isSkip() && !dialogueStack.isEmpty()) {
+            dialogueStack.pop();
+        }
     }
 
     private void update(float dt) {
         jack.update(dt);
-        handleInput(dt);
         cameraHandler.updateCamera();
         mapHandler.setCamera(cameraHandler.getCamera());
     }
@@ -83,6 +90,7 @@ public class Level implements Screen {
         if (!game.isPaused()) {
             update(delta);
         }
+        handleInput(delta);
 
         mapHandler.renderDecorations();
 
@@ -95,6 +103,12 @@ public class Level implements Screen {
         mapHandler.renderTerrain();
 
         controls.draw();
+        dialogueStack.render();
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override

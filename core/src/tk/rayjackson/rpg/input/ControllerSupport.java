@@ -21,7 +21,7 @@ public class ControllerSupport {
     }
 
     public boolean getButton(int buttonCode) {
-        return active.getButton(buttonCode);
+        return active != null && active.getButton(buttonCode);
     }
 
     public float getAxis(int axisCode) {

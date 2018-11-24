@@ -1,4 +1,4 @@
-package tk.rayjackson.rpg;
+package tk.rayjackson.rpg.map;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
