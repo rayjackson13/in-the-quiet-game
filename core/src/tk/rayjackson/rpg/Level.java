@@ -44,9 +44,8 @@ public class Level implements Screen {
         int mapHeight = mapHandler.getHeight();
         jack = new Jack(this, new Vector2(128, 224));
         cameraHandler = new CameraHandler(jack.getPosition(), mapWidth, mapHeight);
-        controls = new Controls();
+        controls = new Controls(game, cameraHandler.getCamera());
         dialogue = new Dialogue(game, cameraHandler.getCamera());
-        touchSupport = new TouchSupport(game, cameraHandler.getCamera());
     }
 
     public TextureAtlas getAtlas() {
@@ -95,7 +94,7 @@ public class Level implements Screen {
 
         mapHandler.renderTerrain();
 
-        touchSupport.draw();
+        controls.draw();
     }
 
     @Override

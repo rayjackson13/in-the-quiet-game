@@ -3,11 +3,24 @@ package tk.rayjackson.rpg.input;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.PovDirection;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.input.mapping.XboxMapping;
 
 import static com.badlogic.gdx.Gdx.input;
 import static tk.rayjackson.rpg.input.mapping.XboxMapping.*;
+
+class TouchControls {
+    private TouchSupport support;
+    public TouchControls(TouchSupport support) {
+        this.support = support;
+    }
+    boolean UP() { return support.getDirection().y > 0; }
+    boolean DOWN() { return support.getDirection().y < 0; }
+    boolean LEFT() { return support.getDirection().x < 0; }
+    boolean RIGHT() { return support.getDirection().x > 0; }
+}
 
 class KeyboardControls {
     boolean UP() {
@@ -58,27 +71,35 @@ public class Controls {
     private ControllerSupport controllerSupport;
     private KeyboardControls keyboard;
     private GamepadControls gamepad;
+    private TouchControls touch;
+    private TouchSupport touchSupport;
 
-    public Controls() {
-        this.controllerSupport = new ControllerSupport();
-        this.keyboard = new KeyboardControls();
-        this.gamepad = new GamepadControls(controllerSupport);
+    public Controls(Game game, OrthographicCamera camera) {
+        controllerSupport = new ControllerSupport();
+        keyboard = new KeyboardControls();
+        gamepad = new GamepadControls(controllerSupport);
+        touchSupport = new TouchSupport(game, camera);
+        touch = new TouchControls(touchSupport);
+    }
+
+    public void draw() {
+        touchSupport.draw();
     }
 
     public boolean isUp() {
-        return keyboard.UP() || gamepad.UP();
+        return keyboard.UP() || gamepad.UP() || touch.UP();
     }
 
     public boolean isDown() {
-        return keyboard.DOWN() || gamepad.DOWN();
+        return keyboard.DOWN() || gamepad.DOWN() || touch.DOWN();
     }
 
     public boolean isLeft() {
-        return keyboard.LEFT() || gamepad.LEFT();
+        return keyboard.LEFT() || gamepad.LEFT() || touch.LEFT();
     }
 
     public boolean isRight() {
-        return keyboard.RIGHT() || gamepad.RIGHT();
+        return keyboard.RIGHT() || gamepad.RIGHT() || touch.RIGHT();
     }
 
     public boolean isSkip() {
