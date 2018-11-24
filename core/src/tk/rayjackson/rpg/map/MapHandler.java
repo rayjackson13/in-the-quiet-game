@@ -1,7 +1,6 @@
 package tk.rayjackson.rpg.map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObjects;
@@ -10,12 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 public class MapHandler {
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private int[] terrainLayerIndices;
-    private MapLayer objectLayer;
-    private int[] decorationLayersIndices;
-    private MapProperties properties;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer renderer;
+    private final int[] terrainLayerIndices;
+    private final MapLayer objectLayer;
+    private final int[] decorationLayersIndices;
+    private final MapProperties properties;
 
     public MapHandler(String mapName) {
         map = MapProcessor.loadMap(mapName);
@@ -57,10 +56,6 @@ public class MapHandler {
 
     public void renderTerrain() {
         renderer.render(terrainLayerIndices);
-    }
-
-    public Map getMap() {
-        return map;
     }
 
     public MapObjects getObjects() {

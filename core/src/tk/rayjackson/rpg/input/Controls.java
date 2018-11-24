@@ -6,14 +6,15 @@ import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import tk.rayjackson.rpg.game.Game;
-import tk.rayjackson.rpg.input.mapping.XboxMapping;
 
 import static com.badlogic.gdx.Gdx.input;
-import static tk.rayjackson.rpg.input.mapping.XboxMapping.*;
+import static tk.rayjackson.rpg.input.mapping.XboxMapping.AXIS_LX;
+import static tk.rayjackson.rpg.input.mapping.XboxMapping.AXIS_LY;
+import static tk.rayjackson.rpg.input.mapping.XboxMapping.POV;
 
 class TouchControls {
-    private TouchSupport support;
-    public TouchControls(TouchSupport support) {
+    private final TouchSupport support;
+    TouchControls(TouchSupport support) {
         this.support = support;
     }
     boolean UP() { return support.getDirection().y > 0; }
@@ -44,7 +45,7 @@ class KeyboardControls {
 }
 
 class GamepadControls {
-    private ControllerSupport support;
+    private final ControllerSupport support;
     GamepadControls(ControllerSupport support) {
         this.support = support;
     }
@@ -68,14 +69,13 @@ class GamepadControls {
 }
 
 public class Controls {
-    private ControllerSupport controllerSupport;
-    private KeyboardControls keyboard;
-    private GamepadControls gamepad;
-    private TouchControls touch;
-    private TouchSupport touchSupport;
+    private final KeyboardControls keyboard;
+    private final GamepadControls gamepad;
+    private final TouchControls touch;
+    private final TouchSupport touchSupport;
 
     public Controls(Game game, OrthographicCamera camera) {
-        controllerSupport = new ControllerSupport();
+        ControllerSupport controllerSupport = new ControllerSupport();
         keyboard = new KeyboardControls();
         gamepad = new GamepadControls(controllerSupport);
         touchSupport = new TouchSupport(game, camera);

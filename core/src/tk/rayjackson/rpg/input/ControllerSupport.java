@@ -5,12 +5,11 @@ import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.utils.Array;
 
-public class ControllerSupport {
-    private Array<Controller> controllers;
+class ControllerSupport {
     private Controller active;
 
-    public ControllerSupport() {
-        controllers = Controllers.getControllers();
+    ControllerSupport() {
+        Array<Controller> controllers = Controllers.getControllers();
         System.out.println("Controllers: " + controllers.size);
         for (Controller c : controllers) {
             System.out.println(c.getName());
@@ -20,15 +19,15 @@ public class ControllerSupport {
         }
     }
 
-    public boolean getButton(int buttonCode) {
+    boolean getButton(int buttonCode) {
         return active != null && active.getButton(buttonCode);
     }
 
-    public float getAxis(int axisCode) {
+    float getAxis(int axisCode) {
         if (active == null) {
             return 0;
         }
-        // deal 20% of deadzone
+        // deal 20% of dead zone
         float axis = active.getAxis(axisCode);
         if (Math.abs(axis) < .2f) {
             return 0;
@@ -36,7 +35,7 @@ public class ControllerSupport {
         return active.getAxis(axisCode);
     }
 
-    public PovDirection getPov(int povCode) {
+    PovDirection getPov(int povCode) {
         if (active == null) {
             return PovDirection.center;
         }

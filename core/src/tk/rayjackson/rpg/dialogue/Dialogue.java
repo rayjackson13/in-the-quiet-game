@@ -12,10 +12,10 @@ import com.badlogic.gdx.math.Matrix4;
 import tk.rayjackson.rpg.WorldParams;
 
 public class Dialogue {
-    private BitmapFont font;
-    private SpriteBatch spriteBatch;
+    private final BitmapFont font;
+    private final SpriteBatch spriteBatch;
     private OrthographicCamera camera;
-    private String message;
+    private final String message;
 
     Dialogue(String message) {
         FreeTypeFontGenerator generator =

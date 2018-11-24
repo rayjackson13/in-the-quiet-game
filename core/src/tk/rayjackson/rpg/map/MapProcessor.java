@@ -3,9 +3,9 @@ package tk.rayjackson.rpg.map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-public class MapProcessor {
+class MapProcessor {
 
-    public static TiledMap loadMap(String name) {
+    static TiledMap loadMap(String name) {
         TmxMapLoader mapLoader = new TmxMapLoader();
         return mapLoader.load(name);
     }

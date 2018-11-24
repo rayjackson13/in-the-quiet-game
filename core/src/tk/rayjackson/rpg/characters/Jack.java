@@ -13,25 +13,21 @@ import com.badlogic.gdx.utils.Array;
 import tk.rayjackson.rpg.Level;
 import tk.rayjackson.rpg.helpers.CharacterFacing;
 
-import static tk.rayjackson.rpg.WorldParams.WORLD_WIDTH;
-
 public class Jack extends Sprite {
-    private Level screen;
+    private final Level screen;
 
-    public enum State {RUNNING, STANDING, ATTACKING}
+    public enum State {RUNNING, STANDING}
 
-    public State currentState;
-    public State previousState;
+    private State currentState;
+    private State previousState;
 
-    private Vector2 position;
+    private final Vector2 position;
 
-    private JackAnimations animations;
-    private Animation animRun;
-    private Animation animIdle;
+    private final JackAnimations animations;
     private CharacterFacing facing;
 
     private float stateTimer;
-    private MapObjects mapObjects;
+    private final MapObjects mapObjects;
 
     private Array<Rectangle> deadZones;
     private final float speed = 2;
@@ -50,7 +46,7 @@ public class Jack extends Sprite {
         deadZones = instantiateDeadZones(mapObjects);
     }
 
-    public Array<Rectangle> instantiateDeadZones(MapObjects mapObjects) {
+    private Array<Rectangle> instantiateDeadZones(MapObjects mapObjects) {
         deadZones = new Array<Rectangle>();
         for (MapObject mapObject : mapObjects) {
             deadZones.add(((RectangleMapObject) mapObject).getRectangle());
@@ -111,8 +107,8 @@ public class Jack extends Sprite {
 
     private TextureRegion getFrame(float delta) {
         TextureRegion region;
-        animIdle = animations.getAnimation(false, facing);
-        animRun = animations.getAnimation(true, facing);
+        Animation animIdle = animations.getAnimation(false, facing);
+        Animation animRun = animations.getAnimation(true, facing);
         switch (currentState) {
             case RUNNING:
                 region = (TextureRegion) animRun.getKeyFrame(stateTimer, true);

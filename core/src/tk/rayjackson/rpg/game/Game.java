@@ -15,11 +15,6 @@ public class Game extends com.badlogic.gdx.Game {
 		state = GameState.RUNNING;
 	}
 
-	@Override
-	public void render () {
-		super.render();
-	}
-
 	public void pause() {
 		state = GameState.PAUSED;
 	}

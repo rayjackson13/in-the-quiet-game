@@ -2,8 +2,8 @@ package tk.rayjackson.rpg.music;
 
 import com.badlogic.gdx.audio.Music;
 
-public class MusicInstance implements Music {
-    private Music music;
+class MusicInstance implements Music {
+    private final Music music;
 
     public MusicInstance(Music music) {
         this.music = music;

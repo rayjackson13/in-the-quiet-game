@@ -3,27 +3,24 @@ package tk.rayjackson.rpg.characters;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 import tk.rayjackson.rpg.helpers.CharacterFacing;
 
-public class JackAnimations {
-    private Jack jack;
-    private TextureAtlas atlas;
+class JackAnimations {
+    private final TextureAtlas atlas;
 
     // Down Animations
-    private Animation downIdle;
-    private Animation downRun;
+    private Animation<TextureRegion> downIdle;
+    private Animation<TextureRegion> downRun;
     // Up Animations
-    private Animation upIdle;
-    private Animation upRun;
+    private Animation<TextureRegion> upIdle;
+    private Animation<TextureRegion> upRun;
     // Side Animations
-    private Animation sideIdle;
-    private Animation sideRun;
+    private Animation<TextureRegion> sideIdle;
+    private Animation<TextureRegion> sideRun;
 
-    public JackAnimations(Jack jack, TextureAtlas atlas) {
-        this.jack = jack;
+    JackAnimations(Jack jack, TextureAtlas atlas) {
         this.atlas = atlas;
         initializeAnimations();
     }
@@ -38,18 +35,18 @@ public class JackAnimations {
         sideRun = defineAnimation(frames, "SideRun");
     }
 
-    private Animation defineAnimation(Array<TextureRegion> frameArray, String name) {
+    private Animation<TextureRegion> defineAnimation(Array<TextureRegion> frameArray, String name) {
         for (int i = 0; i < 4; i++) {
             frameArray.add(new TextureRegion(atlas.
                     findRegion(name), i * 16, 0, 16, 16));
         }
 
-        Animation animation = new Animation(.2f, frameArray);
+        Animation<TextureRegion> animation = new Animation<TextureRegion>(.2f, frameArray);
         frameArray.clear();
         return animation;
     }
 
-    public Animation getAnimation(boolean isRunning, CharacterFacing facing) {
+    Animation<TextureRegion> getAnimation(boolean isRunning, CharacterFacing facing) {
         switch (facing) {
             case TOP:
                 return isRunning ? upRun : upIdle;

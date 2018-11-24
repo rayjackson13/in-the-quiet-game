@@ -2,7 +2,6 @@ package tk.rayjackson.rpg.dialogue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 import java.util.List;

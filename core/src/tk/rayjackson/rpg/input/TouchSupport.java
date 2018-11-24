@@ -17,13 +17,13 @@ enum State {
 }
 
 class TextureProcessor {
-    private Texture atlas;
+    private final Texture atlas;
 
-    public TextureProcessor() {
+    TextureProcessor() {
         atlas = new Texture("skins/controls.png");
     }
 
-    public TextureRegion getTexture(State state) {
+    TextureRegion getTexture(State state) {
         switch (state) {
             case UP:
                 return new TextureRegion(atlas, 0, 0, 16, 16);
@@ -47,22 +47,22 @@ class TextureProcessor {
     }
 }
 
-public class TouchSupport {
-    private int BUTTON_SIZE = 20;
-    private OrthographicCamera camera;
-    private Game game;
+class TouchSupport {
+    private final int BUTTON_SIZE = 20;
+    private final OrthographicCamera camera;
+    private final Game game;
 
-    private TextureProcessor textureProcessor;
+    private final TextureProcessor textureProcessor;
 
-    private Rectangle leftArrow;
-    private Rectangle rightArrow;
-    private Rectangle upArrow;
-    private Rectangle downArrow;
+    private final Rectangle leftArrow;
+    private final Rectangle rightArrow;
+    private final Rectangle upArrow;
+    private final Rectangle downArrow;
 
     private State currentlyPressed;
-    private Vector2 collisionPoint;
+    private final Vector2 collisionPoint;
 
-    public TouchSupport(Game game, OrthographicCamera camera) {
+    TouchSupport(Game game, OrthographicCamera camera) {
         this.game = game;
         this.camera = camera;
         leftArrow = new Rectangle(10, 30, BUTTON_SIZE, BUTTON_SIZE);
@@ -73,7 +73,7 @@ public class TouchSupport {
         collisionPoint = new Vector2();
     }
 
-    public Vector2 getDirection() {
+    Vector2 getDirection() {
         if (currentlyPressed != null) {
             switch (currentlyPressed) {
                 case UP:
@@ -91,7 +91,7 @@ public class TouchSupport {
         return new Vector2(0,0);
     }
 
-    public void draw() {
+    void draw() {
         Matrix4 uiMatrix = camera.combined.cpy();
         uiMatrix.setToOrtho2D(0, 0, WorldParams.WORLD_WIDTH, WorldParams.WORLD_HEIGHT);
         game.batch.setProjectionMatrix(uiMatrix);
@@ -148,22 +148,22 @@ public class TouchSupport {
         return result;
     }
 
-    public void drawLeft(boolean isPressed) {
+    private void drawLeft(boolean isPressed) {
         State state = isPressed ? State.LEFT_PRESSED : State.LEFT;
         game.batch.draw(textureProcessor.getTexture(state), 10, 30, BUTTON_SIZE, BUTTON_SIZE);
     }
 
-    public void drawRight(boolean isPressed) {
+    private void drawRight(boolean isPressed) {
         State state = isPressed ? State.RIGHT_PRESSED : State.RIGHT;
         game.batch.draw(textureProcessor.getTexture(state), 50, 30, BUTTON_SIZE, BUTTON_SIZE);
     }
 
-    public void drawUp(boolean isPressed) {
+    private void drawUp(boolean isPressed) {
         State state = isPressed ? State.UP_PRESSED : State.UP;
         game.batch.draw(textureProcessor.getTexture(state), 30, 50, BUTTON_SIZE, BUTTON_SIZE);
     }
 
-    public void drawDown(boolean isPressed) {
+    private void drawDown(boolean isPressed) {
         State state = isPressed ? State.DOWN_PRESSED : State.DOWN;
         game.batch.draw(textureProcessor.getTexture(state), 30, 10, BUTTON_SIZE, BUTTON_SIZE);
     }

@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import tk.rayjackson.rpg.camera.CameraHandler;
@@ -16,23 +15,19 @@ import tk.rayjackson.rpg.dialogue.DialogueParser;
 import tk.rayjackson.rpg.dialogue.DialogueStack;
 import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.input.Controls;
-import tk.rayjackson.rpg.input.TouchSupport;
 import tk.rayjackson.rpg.map.MapHandler;
 import tk.rayjackson.rpg.music.MusicController;
 
 public class Level implements Screen {
-    private Game game;
-    public CameraHandler cameraHandler;
-    public MapHandler mapHandler;
+    private final Game game;
+    private final CameraHandler cameraHandler;
+    public final MapHandler mapHandler;
 
     // Sprites
-    private TextureAtlas jackAtlas;
-    private Jack jack;
+    private final TextureAtlas jackAtlas;
+    private final Jack jack;
 
-    // Music
-    private MusicController musicController;
-
-    private Controls controls;
+    private final Controls controls;
     private DialogueStack dialogueStack;
 
     public Game getGame() {
@@ -41,7 +36,8 @@ public class Level implements Screen {
 
     public Level(Game game) {
         this.game = game;
-        musicController = new MusicController();
+        // Music
+        MusicController musicController = new MusicController();
         jackAtlas = new TextureAtlas("Jack.pack");
         mapHandler = new MapHandler("map.tmx");
         int mapWidth = mapHandler.getWidth();
@@ -52,7 +48,7 @@ public class Level implements Screen {
         initializeDialogues();
     }
 
-    public void initializeDialogues() {
+    private void initializeDialogues() {
         List<Dialogue> dialogues = DialogueParser.parse("dialogues/venom1.json");
         dialogueStack = new DialogueStack(game, cameraHandler.getCamera(), dialogues);
     }
@@ -61,7 +57,7 @@ public class Level implements Screen {
         return jackAtlas;
     }
 
-    private void handleInput(float dt) {
+    private void handleInput() {
         if (controls.isUp())
             jack.move(new Vector2(0, 1));
         if (controls.isDown())
@@ -70,7 +66,7 @@ public class Level implements Screen {
             jack.move(new Vector2(-1, 0));
         if (controls.isRight())
             jack.move(new Vector2(1, 0));
-        if (controls.isSkip() && !dialogueStack.isEmpty()) {
+        if (controls.isSkip() && dialogueStack.hasObjects()) {
             dialogueStack.pop();
         }
     }
@@ -90,7 +86,7 @@ public class Level implements Screen {
         if (!game.isPaused()) {
             update(delta);
         }
-        handleInput(delta);
+        handleInput();
 
         mapHandler.renderDecorations();
 
