@@ -9,12 +9,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Matrix4;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import tk.rayjackson.rpg.game.Game;
 import tk.rayjackson.rpg.WorldParams;
-import tk.rayjackson.rpg.input.Controls;
 
 public class Dialogue {
     private BitmapFont font;
@@ -22,7 +17,7 @@ public class Dialogue {
     private OrthographicCamera camera;
     private String message;
 
-    public Dialogue(String message) {
+    Dialogue(String message) {
         FreeTypeFontGenerator generator =
                 new FreeTypeFontGenerator(Gdx.files.internal("fonts/PressStart.ttf"));
         FreeTypeFontParameter parameter = new FreeTypeFontParameter();
@@ -35,11 +30,11 @@ public class Dialogue {
         font.getData().setScale(.5f, .5f);
     }
 
-    public void setCamera(OrthographicCamera camera) {
+    void setCamera(OrthographicCamera camera) {
         this.camera = camera;
     }
 
-    public void show() {
+    void show() {
         Matrix4 uiMatrix = camera.combined.cpy();
         uiMatrix.setToOrtho2D(0, 0, WorldParams.WORLD_WIDTH, WorldParams.WORLD_HEIGHT);
         spriteBatch.setProjectionMatrix(uiMatrix);
@@ -49,7 +44,7 @@ public class Dialogue {
         spriteBatch.end();
     }
 
-    public void dispose() {
+    void dispose() {
         spriteBatch.dispose();
     }
 }
